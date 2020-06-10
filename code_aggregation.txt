@@ -1,0 +1,8 @@
+dfo["DEATHAGE_classe"]= pd.cut(dfo["DEATHAGE"], bins=[1,10,20,30,40,50,60,70,80,90,100],include_lowest = True)
+dfo["DEATHAGE_classe"].head()
+df1=dfo.groupby("DEATHAGE_classe")["DESCRIPTION"].agg(["value_counts"])
+df2=dfo.groupby("DEATHAGE_classe")["TOTAL_CLAIM_COST"].agg(["sum","median"])
+df3=df2.join(df1)
+df3.columns
+df3.rename(columns={'value_counts': "Nb de personnes ayant visité l'hopital par description pour chaque tranche d'âge", 'sum': "Total de tous les coûts de la demande pour chaque tranche d'âge",'median': "Médiane de tous les coûts de la demande pour chaque tranche d'âge"}, inplace=True)
+df3
